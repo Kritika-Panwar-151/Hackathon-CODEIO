@@ -1,191 +1,412 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Fake App Detection</title>
+    {% load static %}
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #eef4ff;
-            padding: 40px;
+            font-family: "Poppins", sans-serif;
+            margin: 0;
+            padding: 40px 0;
+            background: #0f172a;
+            color: #e2e8f0;
         }
-
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: auto;
+            background: #1e293b;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
         h1 {
             text-align: center;
-            color: #1e3a8a;
-            font-size: 32px;
-            margin-bottom: 20px;
+            color: #60a5fa;
+            margin-bottom: 5px;
         }
-
-        .search-box {
-            width: 450px;
-            background: white;
-            margin: auto;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        .subtitle {
             text-align: center;
+            color: #94a3b8;
+            margin-bottom: 25px;
         }
-
-        input[type=text] {
-            width: 90%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #b0b0b0;
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: none;
+            background: #334155;
+            color: #e2e8f0;
             font-size: 16px;
         }
-
-        button {
-            margin-top: 15px;
-            width: 100%;
-            padding: 12px;
-            background: #1e3a8a;
-            color: white;
+        .search-box button {
+            padding: 12px 20px;
+            border-radius: 10px;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
+            background: #3b82f6;
+            color: #fff;
             cursor: pointer;
         }
-
-        button:hover {
-            background: #172554;
-        }
-
-        .section-box {
-            margin-top: 35px;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
-        }
-
-        .title {
+        .section-title {
             font-size: 22px;
-            color: #1e3a8a;
-            margin-bottom: 20px;
-            font-weight: bold;
+            color: #93c5fd;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
-
-        table {
+        .card-header {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .card-header img {
+            width: 70px;
+            height: 70px;
+            border-radius: 14px;
+            object-fit: cover;
+        }
+        .tag-real {
+            background: #065f46;
+            color: #a7f3d0;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        .fake-table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
         }
-
-        td, th {
+        .fake-table th,
+        .fake-table td {
             padding: 10px;
-            border-bottom: 1px solid #ddd;
+            font-size: 14px;
         }
-
-        .fake-item {
-            background: #f3f4f6;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            font-size: 18px;
-            color: #b91c1c;
-            font-weight: bold;
+        .fake-table th {
+            background: #111827;
+            color: #60a5fa;
+            text-align: left;
         }
-
-        .dropdown {
-            display: none;
-            margin-top: 10px;
-            padding: 15px;
-            background: #fff;
-            border-left: 4px solid #b91c1c;
+        .fake-table td {
+            border-bottom: 1px solid #334155;
+        }
+        .view-btn {
+            padding: 6px 12px;
+            background: #2563eb;
+            color: #fff;
+            border: none;
             border-radius: 8px;
+            cursor: pointer;
         }
-
-        .dropdown table {
+        #details-panel {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 16px;
+            background: #020617;
+            border: 1px solid #334155;
+        }
+        .email-box {
+            background: #020617;
+            padding: 12px 15px;
+            border-radius: 10px;
+            white-space: pre-wrap;
+            border-left: 3px solid #3b82f6;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+        }
+        .evidence-table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        .evidence-table th,
+        .evidence-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #1f2937;
+        }
+        .evidence-table th {
+            text-align: left;
+            color: #93c5fd;
+            background: #020617;
+        }
+        pre.json-box {
+            background: #020617;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            overflow-x: auto;
         }
 
-        .fake-item:hover {
-            background: #e5e7eb;
+        /* Clean section boxes */
+        .section-box {
+            background: #111827;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border: 1px solid #1f2937;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
+
+        /* Extra spacing between blocks */
+        .spacer {
+            height: 25px;
+        }
+
     </style>
 
+    <script>
+        function showDetails(btn) {
+            const d = btn.dataset;
+
+            const panel = document.getElementById("details-panel");
+            const content = document.getElementById("details-content");
+
+            // Build evidence table HTML
+            const evidenceTable = `
+                <table class="evidence-table">
+                    <tr><th colspan="2">Similarity Scores</th></tr>
+                    <tr><td>Name similarity</td><td>${d.nameSimilarity}</td></tr>
+                    <tr><td>Publisher similarity</td><td>${d.publisherSimilarity}</td></tr>
+                    <tr><td>Package similarity</td><td>${d.packageSimilarity}</td></tr>
+                    <tr><td>Icon hash diff</td><td>${d.iconDiff || "N/A"}</td></tr>
+                    <tr><th colspan="2">Risk Components</th></tr>
+                    <tr><td>Permission risk points</td><td>${d.permPoints}</td></tr>
+                    <tr><td>Install risk points</td><td>${d.installPoints}</td></tr>
+                    <tr><td>Rating risk points</td><td>${d.ratingPoints}</td></tr>
+                    <tr><td>Total score</td><td>${d.risk}/100</td></tr>
+                </table>
+            `;
+
+            const evidenceJson = JSON.stringify({
+                app_name: d.name,
+                package_id: d.package,
+                store_url: d.storeUrl,
+                similarity_scores: {
+                    name_similarity: parseFloat(d.nameSimilarity),
+                    publisher_similarity: parseFloat(d.publisherSimilarity),
+                    package_similarity: parseFloat(d.packageSimilarity),
+                    icon_hash_diff: d.iconDiff ? parseInt(d.iconDiff) : null,
+                },
+                icon_evidence: {
+                    official_icon_hash: d.offHash,
+                    fake_icon_hash: d.fakeHash,
+                },
+                risk_components: {
+                    permission_risk_points: parseInt(d.permPoints || 0),
+                    install_risk_points: parseInt(d.installPoints || 0),
+                    rating_risk_points: parseInt(d.ratingPoints || 0),
+                    total_score: parseInt(d.risk),
+                },
+            }, null, 2);
+
+            content.innerHTML = `
+                <div class="card-header">
+                    <img src="${d.icon}" alt="App icon">
+                    <div>
+                        <h2 style="margin:0;">${d.name}</h2>
+                        <div style="color:#9ca3af;">${d.package}</div>
+                        <div style="color:#f87171;font-weight:bold;">Risk Score: ${d.risk}/100</div>
+                        <div style="color:#60a5fa;font-size:13px;margin-top:4px;">
+                            Store URL: ${d.storeUrl || "N/A"}
+                        </div>
+                    </div>
+                </div>
+
+                <p><b>Publisher:</b> ${d.publisher}</p>
+                <p><b>Installs:</b> ${d.installs}</p>
+                <p><b>Rating:</b> ${d.rating}</p>
+                <p><b>Description:</b> ${d.description}</p>
+                <p><b>Permissions:</b> ${d.permissions}</p>
+
+                <h3 style="color:#93c5fd;">Why this app is risky</h3>
+                <ul>${d.reasonsHtml}</ul>
+
+                <h3 style="color:#93c5fd;">Evidence Table</h3>
+                ${evidenceTable}
+
+                <h3 style="color:#93c5fd;">Evidence JSON</h3>
+                <pre class="json-box">${evidenceJson}</pre>
+
+                <h3 style="color:#93c5fd;">Takedown Email Template</h3>
+                <div class="email-box">
+To: Google Play Support
+Subject: Urgent takedown request – Fake app: ${d.name} impersonating official app
+
+Dear Team,
+
+We have detected a suspicious application:
+
+- App Name: ${d.name}
+- Package ID: ${d.package}
+- Publisher: ${d.publisher}
+- Risk Score: ${d.risk}/100
+
+Reasons:
+${d.reasonsText.replace(/\\n/g, "\n")}
+
+Please review this app and take appropriate action.
+
+Regards,
+Fake App Detection System
+                </div>
+            `;
+
+            panel.style.display = "block";
+            panel.scrollIntoView({ behavior: "smooth" });
+        }
+
+
+        function toggleMetrics() {
+            let p = document.getElementById("metrics-panel");
+            p.style.display = p.style.display === "none" ? "block" : "none";
+            p.scrollIntoView({ behavior:"smooth" });
+        }
+
+
+    </script>
 </head>
 <body>
 
-<h1>Fake App Detection</h1>
+<div class="container">
+    <h1>Fake App Detection</h1>
+    <div class="subtitle">Enter a brand name or package ID (e.g., PhonePe or com.phonepe.app)</div>
 
-<div class="search-box">
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" name="appname" placeholder="Enter app name (e.g., PhonePe)" required>
-        <button type="submit">Search</button>
+    <div class="section-box">
+    <form method="get">
+        <div class="search-box">
+            <input type="text" name="q" value="{{ query }}" placeholder="Search brand or package" required>
+            <button type="submit">Search</button>
+        </div>
     </form>
-</div>
+    </div>
+    <div class="spacer"></div>
 
+    {% if real_app %}
+    <div class="section-box">
+        <div class="section-title">Official App (baseline)</div>
+        <div class="card-header" style="margin-bottom:15px;">
+            <img src="{% static real_app.icon_path %}" alt="Official icon">
+            <div>
+                <h2 style="margin:0;">
+                    {{ real_app.name }}
+                    <span class="tag-real">Genuine</span>
+                </h2>
+                <div style="color:#9ca3af;">{{ real_app.package }}</div>
+                <div style="color:#60a5fa;font-size:13px;margin-top:4px;">
+                    {{ real_app.publisher }} &nbsp;|&nbsp; Installs: {{ real_app.installs }} &nbsp;|&nbsp; Rating: {{ real_app.rating }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spacer"></div>
+    {% endif %}
 
-<!-- ========================= -->
-<!-- REAL APP SECTION -->
-<!-- ========================= -->
-
-{% if real_apps %}
-<div class="section-box">
-    <div class="title">Real App</div>
-
-    {% for app in real_apps %}
-        <img src="/static/{{ app.icon_path }}" width="80" style="border-radius: 12px; margin-bottom: 15px;">
-
-        <table>
-            <tr><td><b>Name:</b></td><td>{{ app.name }}</td></tr>
-            <tr><td><b>Package:</b></td><td>{{ app.package }}</td></tr>
-            <tr><td><b>Publisher:</b></td><td>{{ app.publisher }}</td></tr>
-            <tr><td><b>Installs:</b></td><td>{{ app.installs }}</td></tr>
-            <tr><td><b>Rating:</b></td><td>{{ app.rating }}</td></tr>
+    {% if fake_apps %}
+    <div class="section-box">
+        <div class="section-title">Suspicious Apps</div>
+        <table class="fake-table">
+            <tr>
+                <th>App Name</th>
+                <th>Risk</th>
+                <th>Action</th>
+            </tr>
+            {% for app in fake_apps %}
+            <tr>
+                <td>{{ app.name }}</td>
+                <td style="color:#f87171;font-weight:bold;">{{ app.risk_score }}/100</td>
+                <td>
+                    <button class="view-btn"
+                        onclick="showDetails(this)"
+                        data-name="{{ app.name }}"
+                        data-package="{{ app.package }}"
+                        data-icon="{% static app.icon_path %}"
+                        data-publisher="{{ app.publisher }}"
+                        data-installs="{{ app.installs }}"
+                        data-rating="{{ app.rating }}"
+                        data-description="{{ app.description }}"
+                        data-permissions="{{ app.permissions|join:', ' }}"
+                        data-risk="{{ app.risk_score }}"
+                        data-store-url="{{ app.evidence.store_url }}"
+                        data-name-similarity="{{ app.evidence.name_similarity }}"
+                        data-publisher-similarity="{{ app.evidence.publisher_similarity }}"
+                        data-package-similarity="{{ app.evidence.package_similarity }}"
+                        data-icon-diff="{{ app.evidence.icon_hash_diff }}"
+                        data-off-hash="{{ app.evidence.official_icon_hash }}"
+                        data-fake-hash="{{ app.evidence.candidate_icon_hash }}"
+                        data-perm-points="{{ app.evidence.permission_risk_points }}"
+                        data-install-points="{{ app.evidence.install_risk_points }}"
+                        data-rating-points="{{ app.evidence.rating_risk_points }}"
+                        data-reasons-html="{% for r in app.reasons %}<li>{{ r }}</li>{% endfor %}"
+                        data-reasons-text="{% for r in app.reasons %}- {{ r }}{% if not forloop.last %}\n{% endif %}{% endfor %}"
+                    >
+                        View
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
         </table>
-    {% endfor %}
-</div>
-{% endif %}
-
-
-
-<!-- ========================= -->
-<!-- FAKE APPS SECTION -->
-<!-- ========================= -->
-
-{% if fake_apps %}
-<div class="section-box">
-    <div class="title">Fake Apps</div>
-
-    {% for app in fake_apps %}
-        <div class="fake-item" onclick="toggleDropdown('drop{{ forloop.counter }}')">
-            {{ app.name }}
         </div>
+    {% endif %}
+    <button class="view-btn" style="margin-top:20px;" onclick="toggleMetrics()">
+    Show Metrics
+</button>
 
-        <div class="dropdown" id="drop{{ forloop.counter }}">
-            <img src="/static/{{ app.icon_path }}" width="80" style="border-radius: 12px; margin-bottom: 10px;">
+<div id="metrics-panel" style="display:none; margin-top:20px; background:#020617; padding:20px; border-radius:15px; border:1px solid #334155;">
+    <h3 style="color:#93c5fd;">Detection Metrics</h3>
 
-            <table>
-                <tr><td><b>Name:</b></td><td>{{ app.name }}</td></tr>
-                <tr><td><b>Package:</b></td><td>{{ app.package }}</td></tr>
-                <tr><td><b>Publisher:</b></td><td>{{ app.publisher }}</td></tr>
-                <tr><td><b>Risk Score:</b></td><td>{{ app.risk }}</td></tr>
-                <tr><td><b>Rating:</b></td><td>{{ app.rating }}</td></tr>
-                <tr><td><b>Installs:</b></td><td>{{ app.installs }}</td></tr>
-                <tr><td><b>Description:</b></td><td>{{ app.description }}</td></tr>
-                <tr><td><b>Permissions:</b></td><td>{{ app.permissions }}</td></tr>
-            </table>
-        </div>
+    <table class="evidence-table">
+        <tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>True Positives (TP)</td><td>{{ metrics.tp }}</td></tr>
+        <tr><td>False Positives (FP)</td><td>{{ metrics.fp }}</td></tr>
+        <tr><td>False Negatives (FN)</td><td>{{ metrics.fn }}</td></tr>
+        <tr><td>True Negatives (TN)</td><td>{{ metrics.tn }}</td></tr>
+    </table>
 
-    {% endfor %}
+    <table class="evidence-table">
+        <tr><th>Precision</th><td>{{ metrics.precision }}</td></tr>
+        <tr><th>Recall</th><td>{{ metrics.recall }}</td></tr>
+    </table>
+
+    <p style="color:#64748b; font-size:13px; margin-top:15px;">
+        This is a lightweight academic prototype, not a production-grade malware classifier.
+    </p>
 </div>
-{% endif %}
 
+    <div class="section-box" div id="details-panel">
+        <div id="details-content"></div>
+                
 
-<script>
-function toggleDropdown(id) {
-    var box = document.getElementById(id);
-    box.style.display = (box.style.display === "block") ? "none" : "block";
-}
-</script>
+    </div>
+    <div style="
+            margin-top: 40px;
+            padding: 15px 20px;
+            background: #111827;
+            border-left: 4px solid #3b82f6;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #9ca3af;
+        ">
+            <strong style="color:#60a5fa;">Safety & Ethics Notice</strong><br><br>
+
+            • No real malware is executed on personal machines.<br>
+            • No abusive scraping is performed; Google Play Store ToS is respected.<br>
+            • No doxxing or identifying individuals; analysis is strictly app-level.<br>
+            • This is an <strong>academic prototype</strong>, not a production-grade detection system.<br>
+        </div>
+</div>
 
 </body>
 </html>
