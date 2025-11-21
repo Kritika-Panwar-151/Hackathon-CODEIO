@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fake App Detection</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef4ff;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            width: 450px;
+            background: white;
+            margin: auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        input[type=text] {
+            width: 90%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #b0b0b0;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #172554;
+        }
+
+        .section-box {
+            margin-top: 35px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+
+        .title {
+            font-size: 22px;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td, th {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .fake-item {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #b91c1c;
+            font-weight: bold;
+        }
+
+        .dropdown {
+            display: none;
+            margin-top: 10px;
+            padding: 15px;
+            background: #fff;
+            border-left: 4px solid #b91c1c;
+            border-radius: 8px;
+        }
+
+        .dropdown table {
+            margin-top: 10px;
+        }
+
+        .fake-item:hover {
+            background: #e5e7eb;
+        }
+    </style>
+
+</head>
+<body>
+
+<h1>Fake App Detection</h1>
+
+<div class="search-box">
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="appname" placeholder="Enter app name (e.g., PhonePe)" required>
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+
+<!-- ========================= -->
+<!-- REAL APP SECTION -->
+<!-- ========================= -->
+
+{% if real_apps %}
+<div class="section-box">
+    <div class="title">Real App</div>
+
+    {% for app in real_apps %}
+        <img src="/static/{{ app.icon_path }}" width="80" style="border-radius: 12px; margin-bottom: 15px;">
+
+        <table>
+            <tr><td><b>Name:</b></td><td>{{ app.name }}</td></tr>
+            <tr><td><b>Package:</b></td><td>{{ app.package }}</td></tr>
+            <tr><td><b>Publisher:</b></td><td>{{ app.publisher }}</td></tr>
+            <tr><td><b>Installs:</b></td><td>{{ app.installs }}</td></tr>
+            <tr><td><b>Rating:</b></td><td>{{ app.rating }}</td></tr>
+        </table>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+
+<!-- ========================= -->
+<!-- FAKE APPS SECTION -->
+<!-- ========================= -->
+
+{% if fake_apps %}
+<div class="section-box">
+    <div class="title">Fake Apps</div>
+
+    {% for app in fake_apps %}
+        <div class="fake-item" onclick="toggleDropdown('drop{{ forloop.counter }}')">
+            {{ app.name }}
+        </div>
+
+        <div class="dropdown" id="drop{{ forloop.counter }}">
+            <img src="/static/{{ app.icon_path }}" width="80" style="border-radius: 12px; margin-bottom: 10px;">
+
+            <table>
+                <tr><td><b>Name:</b></td><td>{{ app.name }}</td></tr>
+                <tr><td><b>Package:</b></td><td>{{ app.package }}</td></tr>
+                <tr><td><b>Publisher:</b></td><td>{{ app.publisher }}</td></tr>
+                <tr><td><b>Risk Score:</b></td><td>{{ app.risk }}</td></tr>
+                <tr><td><b>Rating:</b></td><td>{{ app.rating }}</td></tr>
+                <tr><td><b>Installs:</b></td><td>{{ app.installs }}</td></tr>
+                <tr><td><b>Description:</b></td><td>{{ app.description }}</td></tr>
+                <tr><td><b>Permissions:</b></td><td>{{ app.permissions }}</td></tr>
+            </table>
+        </div>
+
+    {% endfor %}
+</div>
+{% endif %}
+
+
+<script>
+function toggleDropdown(id) {
+    var box = document.getElementById(id);
+    box.style.display = (box.style.display === "block") ? "none" : "block";
+}
+</script>
+
+</body>
+</html>
