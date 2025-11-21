@@ -76,8 +76,7 @@ Includes mandatory responsible-AI disclaimers.
 
 Project Structure
 ---------------------
-
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   /android_app/      MainActivity.kt      AndroidManifest.xml      activity_main.xml  /django_project/      /app/          apps_data.py          views.py          templates/home.html   `
+`   /android_app/      MainActivity.kt      AndroidManifest.xml      activity_main.xml  /django_project/      /app/          apps_data.py          views.py          templates/home.html   `
 
 How Detection Works
 ----------------------
@@ -103,7 +102,7 @@ Installation
 
 ### 1️⃣ Django Setup
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   pip install pillow imagehash django  python manage.py runserver   `
+   pip install pillow imagehash django  python manage.py runserver   `
 
 ### 2️⃣ Android App Setup
 
@@ -111,13 +110,13 @@ Open Android Studio → Build → Run on device
 
 Modify URL in MainActivity.kt:
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   webView.loadUrl("http://YOUR_IP:8000/")   `
+   webView.loadUrl("http://YOUR_IP:8000/")   `
 
 
 Example Risk Report
 ----------------------
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   App: PhonePay Free Cashback  Risk Score: 100/100  - App name not very similar to official (0.46)  - Package mismatch  - Publisher mismatch  - Suspicious keywords detected  - Icon visually identical to official  - Dangerous permissions (READ_SMS, RECORD_AUDIO)   `
+   App: PhonePay Free Cashback  Risk Score: 100/100  - App name not very similar to official (0.46)  - Package mismatch  - Publisher mismatch  - Suspicious keywords detected  - Icon visually identical to official  - Dangerous permissions (READ_SMS, RECORD_AUDIO)   `
 
 Safety & Ethics
 ------------------
