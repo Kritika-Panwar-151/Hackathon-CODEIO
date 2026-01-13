@@ -1,135 +1,100 @@
-Fake App Detector — Android + Django Web Application
-====================================================
+# Fake App Detector — Android + Django Web Application
 
-_A lightweight academic prototype for detecting fake/cloned Android apps using similarity scoring, icon hashing, publisher matching, permissions audit, and risk scoring._
+## Academic Prototype for Fake / Cloned App Detection
+![Detection Results](images_readme/home.png)
 
-Features
------------
-
-### **1\. Fake App Detection Engine**
-
-The system compares a suspicious app with the genuine baseline app using:
-
-*   **Name Similarity (SequenceMatcher)**
-    
-*   **Publisher Similarity**
-    
-*   **Package ID comparison**
-    
-*   **Icon similarity using perceptual hashing (imagehash + PIL)**
-    
-*   **Permissions risk scoring**
-    
-*   **Install count comparison**
-    
-*   **Rating-based risk**
-    
-*   **Overall risk score (0–100)**
-    
-
-### **2\. Evidence Panel**
-
-When the user clicks **View**, the system shows:
-
-*   App metadata
-    
-*   Risk score
-    
-*   Evidence table
-    
-*   Evidence JSON
-    
-*   Auto-generated takedown email
-    
-*   Icon hash comparison
-    
-
-### **3\. Android WebView App**
-
-A lightweight Android wrapper that loads the Django website with:
-
-*   Auto mobile scaling
-    
-*   Disabled zoom (prevents shaking)
-    
-*   No scrollbars
-    
-*   Fits perfectly on Android screens
-    
-
-### **4\. Detection Metrics**
-
-The system automatically generates:
-
-*   **TP / FP / FN / TN**
-    
-*   **Precision**
-    
-*   **Recall**
-    
-
-Presented in a clean expandable section.
-
-### **5\. Safety & Ethics Notice**
-
-Includes mandatory responsible-AI disclaimers.
-
-Project Structure
----------------------
-`   /android_app/      MainActivity.kt      AndroidManifest.xml      activity_main.xml  /django_project/      /app/          apps_data.py          views.py          templates/home.html   `
-
-How Detection Works
-----------------------
-
-CheckDescription**Name Similarity**Fuzzy match between suspicious and real app**Hash Matching**Compares icons using perceptual hashing**Publisher Match**Detects mismatched or suspicious publishers**Permission Audit**Flags READ\_SMS, RECORD\_AUDIO, CALL\_LOG etc**Installs & Rating**Fake apps often have very low installs + bad ratings
-
-Tech Stack
---------------
-
-*   **Backend:** Django
-    
-*   **Frontend:** HTML + CSS + Vanilla JS
-    
-*   **Image Processing:** Pillow + ImageHash
-    
-*   **Android:** Kotlin WebView wrapper
-    
-*   **Storage:** Local predefined dataset
-    
-
-Installation
----------------
-
-### 1️⃣ Django Setup
-
-   pip install pillow imagehash django  python manage.py runserver   `
-
-### 2️⃣ Android App Setup
-
-Open Android Studio → Build → Run on device
-
-Modify URL in MainActivity.kt:
-
-   webView.loadUrl("http://YOUR_IP:8000/")   `
+## Project Description
+Fake App Detector is a lightweight academic prototype designed to detect fake or cloned Android applications. The system compares suspicious apps with genuine baseline apps using similarity analysis, icon hashing, permission audits, and risk scoring to identify potentially harmful or deceptive applications.
 
 
-Example Risk Report
-----------------------
 
-   App: PhonePay Free Cashback  Risk Score: 100/100  - App name not very similar to official (0.46)  - Package mismatch  - Publisher mismatch  - Suspicious keywords detected  - Icon visually identical to official  - Dangerous permissions (READ_SMS, RECORD_AUDIO)   `
+## Features
 
-Safety & Ethics
-------------------
+### Fake App Detection Engine
+- App name similarity using SequenceMatcher  
+- Publisher similarity and mismatch detection  
+- Package ID comparison  
+- Icon similarity using perceptual hashing (PIL + ImageHash)  
+- Permission-based risk analysis  
+- Install count and rating-based evaluation  
+- Final risk score ranging from **0–100**
 
-No real malware execution✔ No scraping violating ToS✔ No doxxing✔ App-level analysis only✔ Academic prototype, not production-ready
 
-Future Improvements
----------------------
 
-*   Automatic dataset expansion using web scraping
-    
-*   ML-based icon similarity
-    
-*   API to scan real APKs
-    
-*   Offline risk engine for mobile
+### Evidence Panel
+- Displays app metadata and overall risk score  
+- Evidence table and JSON output  
+- Auto-generated takedown email  
+- Icon hash comparison  
+
+
+
+### Android WebView Application
+- Lightweight Android WebView wrapper  
+- Mobile-optimized layout  
+- Disabled zoom and scrollbars  
+- Seamless Django backend integration  
+
+
+
+### Detection Metrics
+- True Positive (TP), False Positive (FP)  
+- False Negative (FN), True Negative (TN)  
+- Precision and Recall  
+- Displayed in an expandable section  
+
+
+
+### Safety & Ethics
+- No real malware execution  
+- No ToS-violating scraping  
+- No doxxing or invasive analysis  
+- App-level metadata analysis only  
+- Strictly academic and research-oriented  
+
+
+## How Detection Works
+| Check | Description |
+|------|------------|
+| Name Similarity | Fuzzy match between genuine and suspicious app names |
+| Icon Hashing | Perceptual hashing to detect visually similar icons |
+| Publisher Match | Identifies mismatched or suspicious publishers |
+| Permission Audit | Flags dangerous permissions like READ_SMS, RECORD_AUDIO |
+| Installs & Ratings | Low installs and poor ratings increase risk |
+
+
+
+## Tech Stack
+- **Backend:** Django  
+- **Frontend:** HTML, CSS, Vanilla JavaScript  
+- **Image Processing:** Pillow, ImageHash  
+- **Android:** Kotlin (WebView)  
+- **Storage:** Local predefined dataset  
+
+## User Interface Screenshots 
+
+### Detection Results
+![Detection Results](images_readme/fakeapp-detection.png)
+
+### Metrics Results
+![Metrics Results-1](images_readme/metrics-1.png)
+![Metrics Results-2](images_readme/metrics-2.png)
+
+## Future Improvements
+- Automatic dataset expansion  
+- Machine learning–based icon similarity  
+- APK-level scanning APIs  
+- Offline mobile risk engine  
+
+
+
+## Author
+**Kritika Panwar**  
+B.E. Computer Science & Engineering  
+BMS College of Engineering  
+
+
+
+## Note
+This project is an academic prototype developed for learning and demonstration purposes and is not production-ready.
+
